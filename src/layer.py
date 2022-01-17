@@ -56,17 +56,15 @@ class Dense(Layer):
 
 class Activation(Layer):
 
-	"""
-	activation, der_activation = activation function and its derivative 
-	"""
 	def __init__(self, activation, der_activation):
 		self.activation = activation
 		self.der_activation = der_activation
 
 	def forwprop(self, x):
 		self.x = x
-		a = activation(x)
+		a = self.activation(x)
 		return a
 	
-	def backprop(self):
-		pass
+	def backprop(self, grad_a):
+		grad_x = self.der_activation(self.x) * grad_a
+		return grad_x
